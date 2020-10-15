@@ -68,19 +68,19 @@ if __name__ == '__main__':
     tweet_analyzer = TweetAnalyzer()
    
 
-    all_tweets = 'OfficialAPCNg.csv'
+    all_tweets = 'me.csv'
     df = pd.read_csv(all_tweets, names=['Tweets', 'ID', 'Len', 'Date', 'Source', 'Likes', 'Retweets'])
 
     df['Sentiment'] = np.array([tweet_analyzer.analyze_sentiment(tweet) for tweet in df['Tweets']])
     print(df.head(20))
 
-    plot_likes_retweets_polarity = PlotLikesRetweetsPolarity()
+    #plot_likes_retweets_polarity = PlotLikesRetweetsPolarity()
 
     #Get the total of Positive, Negative and Neutral Sentiments for APC in OfficialAPCNg
     sum_sentiments(df)
     
     #Display the plots     
-    plot_likes_retweets_polarity.plot_dist_of_likes_and_retweets(df)
-    plot_likes_retweets_polarity.plot_dist_of_APC_polarity(df)
+    #plot_likes_retweets_polarity.plot_dist_of_likes_and_retweets(df)
+    #plot_likes_retweets_polarity.plot_dist_of_APC_polarity(df)
 
-    print(df.head(40))
+    #print(df.head(40))

@@ -8,6 +8,7 @@ import pandas as pd
 import seaborn as sns
 import re
 import csv
+import twint
 
 
 
@@ -82,7 +83,7 @@ class TweetCollector():
     Functionality to collect tweets and store it in a csv file specified.
     """
     def collect_tweets_and_store_as_csv_file(self, tweets):
-        with open('OfficialAPCNg.csv', 'a+', encoding='utf-8-sig') as all_tweets:
+        with open('OfficialAPCNg3.csv', 'a+', encoding='utf-8-sig') as all_tweets:
             csv_writer = csv.writer(all_tweets)
             for line in tweets:
                 row = [line.text, line.id, len(line.text), line.created_at, line.source, line.favorite_count, line.retweet_count]
@@ -109,6 +110,23 @@ if __name__ == '__main__':
         count=200,
         include_rts=1)
 
+
+    c = twint.Config()
+    c.Search = 'APC'
+    c.Since = '2019-01-19'
+    c.Until = '2019-02-19'
+    #c.Custom["tweets"] = ["id", "created_at", "retweets", "source", "likes_count"]
+    #c.Limit = 50
+    #c.Output = "work2.csv"
+    c.Store_object = True
+    c.Store_csv = True
+    twint.run.Search(c)
+    #c.Limit = 50
+    tweets_as_objects = twint.output.tweets_list
+    #c.Output = tweets_as_objects
+    
+    #print(tweets_as_objects)
+
     #Using the class object to call the function that stores tweets in a csv file
-    tweet_collector.collect_tweets_and_store_as_csv_file(tweets)
+    tweet_collector.collect_tweets_and_store_as_csv_file(tweets_as_objects)
     
